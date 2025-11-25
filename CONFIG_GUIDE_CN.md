@@ -191,10 +191,15 @@
     *   加密算法。**完整可选项**: `"aes-gcm"`, `"aes-256-gcm"`, `"xor"`, `"chacha20"`, `"openssl-aes-gcm"`, `"openssl-chacha20"`, `"openssl-aes-256-gcm"` (后四项需在编译时开启相应特性)。
 *   **`data_compress_algo`** (字符串或整数, 可选, 默认: `"none"`)
     *   数据压缩算法。可选项: `"none"` (或 `0`), `"zstd"` (或 `1`), `"lz4"` (或 `2`)。
-*   **`enable_kcp_proxy`**, **`disable_kcp_input`**, **`disable_relay_kcp`**, **`enable_relay_foreign_network_kcp`** (布尔值, 可选, 默认: `false`)
-    *   用于精细控制KCP协议行为的选项。
-*   **`enable_quic_proxy`**, **`disable_quic_input`**, **`quic_listen_port`**
-    *   用于精细控制QUIC协议行为的选项。
+*   **KCP 协议相关选项** (高级)
+    *   **`enable_kcp_proxy`** (布尔值, 可选, 默认: `false`): 启用 KCP 协议作为节点间代理和数据传输的一种方式。KCP 是一种基于 UDP 的可靠传输协议，在高丢包、高延迟的网络环境下可能比 TCP 表现更好。
+    *   **`disable_kcp_input`** (布尔值, 可选, 默认: `false`): 禁止节点接受 KCP 协议的入站连接。设置后，本节点将无法作为 KCP 连接的目标。
+    *   **`disable_relay_kcp`** (布尔值, 可选, 默认: `false`): 当本节点作为中继服务器时，禁止使用 KCP 协议来转发流量。
+    *   **`enable_relay_foreign_network_kcp`** (布尔值, 可选, 默认: `false`): 仅当本节点为其他外部网络（`network_name` 不同）提供中继服务时，才允许使用 KCP 协议。
+*   **QUIC 协议相关选项** (高级)
+    *   **`enable_quic_proxy`** (布尔值, 可选, 默认: `false`): 启用 QUIC 协议作为节点间代理和数据传输的一种方式。QUIC 是一个现代化的、基于 UDP 的加密传输协议，旨在减少连接和传输延迟。
+    *   **`disable_quic_input`** (布尔值, 可选, 默认: `false`): 禁止节点接受 QUIC 协议的入站连接。
+    *   **`quic_listen_port`** (整数, 可选, 默认: `0`): 指定 QUIC 协议监听的 UDP 端口。默认值为 `0`，表示不监听。您需要设置一个具体的端口（如 `11010`）来启用 QUIC 监听。
 *   **`enable_exit_node`** (布尔值, 可选, 默认: `false`)
     *   `true`则允许本节点作为其他节点的出口网关。
 *   **`multi_thread`** (布尔值, 可选, 默认: `true`)
